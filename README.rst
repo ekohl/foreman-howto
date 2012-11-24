@@ -37,6 +37,7 @@ starting points are init.pp and params.pp files. Now let's write our
 
         package {'foreman-postgresql':
           ensure => installed,
+          require => Yumrepo['foreman_proxy'],
         } ~>
 
         class {'foreman':
