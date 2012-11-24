@@ -52,6 +52,17 @@ Now we have a *manager.pp* we can apply.
 
         puppet apply manager.pp --modulepath foreman-installer
 
+Currently when you run this you will see an error about being unable to stop
+foreman. The fix is rather simple. Just edit */etc/sysconfig/foreman* and set
+the following:
+
+.. code-block:: sh
+
+        FOREMAN_USE_PASSENGER=1
+
+When you re-run the puppet apply it should show no errors. This is being worked
+on.
+
 It should be mentioned that there is work underway to replace this *manager.pp*
 solution with an answer file.
 
