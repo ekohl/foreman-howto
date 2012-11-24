@@ -51,6 +51,9 @@ Now we have a *manager.pp* we can apply.
 
         puppet apply manager.pp --modulepath foreman-installer
 
+It should be mentioned that there is work underway to replace this *manager.pp*
+solution with an answer file.
+
 The database
 ============
 
