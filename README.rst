@@ -20,10 +20,10 @@ installer and then write our preferences in *manager.pp*.
 
 Now we have the installer you can look at the various options available. Good
 starting points are init.pp and params.pp files. Now let's write our
-*manager.pp* file.
+*manager.pp* file. To help you get started here's an example.
 
 
-.. code-block::
+.. code-block:: puppet
 
         class {'puppet':
         } ~>
@@ -44,6 +44,12 @@ starting points are init.pp and params.pp files. Now let's write our
           authentication => true,
           use_sqlite     => false,
         }
+
+Now we have a *manager.pp* we can apply.
+
+.. code-block:: sh
+
+        puppet apply manager.pp --modulepath foreman-installer
 
 The database
 ============
@@ -85,5 +91,60 @@ Last but not least is the initialization.
 
         su - -s /bin/bash foreman -c 'RAILS_ENV=production rake -f /usr/share/foreman/Rakefile db:migrate'
 
+Setting up the puppet environment
+=================================
+
+Since we've told foreman-installer that we want a git repository it has
+initialized one for us in */var/lib/puppet/puppet.git*. Each branch will be
+converted into a puppet environment. The default branch is specified in HEAD
+and defaults to master.
+
+Configuring using the webinterface
+==================================
+
+We should now have a basic running system. Just go to
+http://manager.example.org/ and check it out. In case you set up credentials
+the default user is *admin*, but be sure to change the password from *changeme*
+to something a little bit more sure.
+
+First thing we're going to do is add our smart proxy. Navigate to *More* =>
+*Smart Proxies* and click the *New Proxy*-button. Enter the name and URL. I
+recommend calling it manager and connect it to http://localhost:8443/. After
+it's added verify it has all the features you want.
+
+With this smart proxy we can import our puppet classes. Navigate to *More* =>
+*Puppet Classes* and click the *Import from manager*-button. It should detect
+all your puppet classes and environments.
+
+In order to install new servers we need to specify at least one architecture.
+Again under *More* we have *Architectures* which in turn has a *New
+Architecture*-button. I only have *x86_64* but maybe you have *i386* or more
+exotic architectures.
+
+With architectures set up we'll continu by adding operating systems. By now I
+expect you'll find the *New Operating System*-button yourself. I also modified
+the mirror under *Installation Media* to one that's a bit closer.
+
+Setting up a domain and subnet should be straightforward as well.
+
+Last you'll need to configure *Provisioning templates*.
+
+Bugs / missing features
+=======================
+
+While writing this document I ran into several bugs / missing features. This
+section is also a TODO list for myself.
+
+* `Separate passenger repository`_
+* Apache only listens on ipv4
+* Setting up postgresql using puppet would be nice
+
+Then there are also some points I want to expand in this document
+* The initial install should configure DHCP and DNS.
+* Setting up the puppet environment is a bit short
+* Configuring using the webinterface only graces over domain, subnets and
+  privisioning templates
+
 .. _foreman-installer: https://github.com/theforeman/foreman-installer
 .. _foreman installer wiki: http://theforeman.org/projects/foreman/wiki/Using_Puppet_Module_ready_to_use
+.. _Separate passenger repository: https://github.com/theforeman/puppet-passenger/issues/2
