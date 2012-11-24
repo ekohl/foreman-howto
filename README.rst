@@ -60,8 +60,10 @@ the following:
 
         FOREMAN_USE_PASSENGER=1
 
-When you re-run the puppet apply it should show no errors. This is being worked
-on.
+When you re-run the puppet apply it should show no errors. This is `being
+worked on`__.
+
+__ `puppet-foreman pull 18`_
 
 It should be mentioned that there is work underway to replace this *manager.pp*
 solution with an answer file.
@@ -151,8 +153,11 @@ While writing this document I ran into several bugs / missing features. This
 section is also a TODO list for myself.
 
 * `Separate passenger repository`_
+* `Set FOREMAN_USE_PASSENGER on install`__
 * Apache only listens on ipv4
 * Setting up postgresql using puppet would be nice
+
+__ `puppet-foreman pull 18`_
 
 Then there are also some points I want to expand in this document
 
@@ -164,3 +169,4 @@ Then there are also some points I want to expand in this document
 .. _foreman-installer: https://github.com/theforeman/foreman-installer
 .. _foreman installer wiki: http://theforeman.org/projects/foreman/wiki/Using_Puppet_Module_ready_to_use
 .. _Separate passenger repository: https://github.com/theforeman/puppet-passenger/issues/2
+.. _puppet-foreman pull 18: https://github.com/theforeman/puppet-foreman/pull/18
