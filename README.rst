@@ -140,10 +140,11 @@ section is also a TODO list for myself.
 * Setting up postgresql using puppet would be nice
 
 Then there are also some points I want to expand in this document
+
 * The initial install should configure DHCP and DNS.
 * Setting up the puppet environment is a bit short
 * Configuring using the webinterface only graces over domain, subnets and
-  privisioning templates
+  provisioning templates
 
 .. _foreman-installer: https://github.com/theforeman/foreman-installer
 .. _foreman installer wiki: http://theforeman.org/projects/foreman/wiki/Using_Puppet_Module_ready_to_use
