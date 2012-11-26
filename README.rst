@@ -8,7 +8,7 @@ We're going to use **192.168.100.0/24** with **192.168.100.1** as gateway. Our
 manager will also be the recursing DNS server.
 
 For this tutorial I'm going to assume a plain CentOS 6 install with EPEL, but
-it should be easily apply to Debian as well.
+it should be easily applied to Debian as well.
 
 It should be noted that foreman-installer_ is still very much in development
 and things are going to change.
