@@ -137,12 +137,12 @@ to something a little bit more sure.
 First thing we're going to do is add our smart proxy. Navigate to *More* =>
 *Smart Proxies* and click the *New Proxy*-button. Enter the name and URL. I
 recommend calling it manager and connect it to http://localhost:8443/. After
-it's added verify it has all the features you want.
+it's added verify it has all the features you want. You should also be able to
+import your DHCP subnet here.
 
 With this smart proxy we can import our puppet classes. Navigate to *More* =>
 *Puppet Classes* and click the *Import from manager*-button. It should detect
-all your puppet classes and environments. You should also be able to import
-your DHCP subnet here.
+all your puppet classes and environments.
 
 In order to install new servers we need to specify at least one architecture.
 Again under *More* we have *Architectures* which in turn has a *New
