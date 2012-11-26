@@ -178,7 +178,7 @@ foreman_proxy definition.
           dhcp_reverse     => '0.0.10.in-addr.arpa',
           gateway          => '10.0.0.1',
           range            => '10.0.0.50 10.0.0.200',
-          dhcp_nameservers => '10.0.1.2;10.0.1.3',
+          dhcp_nameservers => '10.0.1.2,10.0.1.3',
 
           dns              => true,
           dns_reverse      => '0.0.10.in-addr.arpa',
