@@ -4,7 +4,14 @@ Setting up foreman
 For simplicity we're going to assume a single foreman server. This will include
 a smart proxy, DHCP, TFTP and DNS. We also assume we have control over our
 **example.org** domain. So let's call this server **manager.example.org**.
-For this tutorial I'm going to assume a plain CentOS 6 install with EPEL.
+We're going to use **192.168.100.0/24** with **192.168.100.1** as gateway. Our
+manager will also be the recursing DNS server.
+
+For this tutorial I'm going to assume a plain CentOS 6 install with EPEL, but
+it should be easily apply to Debian as well.
+
+It should be noted that foreman-installer_ is still very much in development
+and things are going to change.
 
 Installing foreman
 ==================
@@ -33,6 +40,8 @@ starting points are init.pp and params.pp files. Now let's write our
         } ~>
 
         class {'foreman_proxy':
+          dhcp => true,
+          dns  => true,
         } ~>
 
         package {'foreman-postgresql':
@@ -66,7 +75,8 @@ worked on`__.
 __ `puppet-foreman pull 18`_
 
 It should be mentioned that there is work underway to replace this *manager.pp*
-solution with an answer file.
+solution with an answer file. The git clone method will be replaced by
+packages.
 
 The database
 ============
@@ -131,7 +141,8 @@ it's added verify it has all the features you want.
 
 With this smart proxy we can import our puppet classes. Navigate to *More* =>
 *Puppet Classes* and click the *Import from manager*-button. It should detect
-all your puppet classes and environments.
+all your puppet classes and environments. You should also be able to import
+your DHCP subnet here.
 
 In order to install new servers we need to specify at least one architecture.
 Again under *More* we have *Architectures* which in turn has a *New
@@ -145,6 +156,33 @@ the mirror under *Installation Media* to one that's a bit closer.
 Setting up a domain and subnet should be straightforward as well.
 
 Last you'll need to configure *Provisioning templates*.
+
+Beyond the defaults
+-------------------
+
+Defaults are nice, but they're unlikely to fit everyone's needs.
+
+Using a different network
+=========================
+
+While 192.168.100.0/24 may be a good place to start, it might not fit everyone.
+In this example we're switching to **10.0.0.0/24** where we'll use
+**10.0.0.50** to **10.0.0.200**. In this network we also have two other
+recursors, **10.0.1.2** and **10.0.1.3**. It just comes down to changing our
+foreman_proxy definition.
+
+.. code-block:: puppet
+
+        class {'foreman_proxy':
+          dhcp             => true,
+          dhcp_reverse     => '0.0.10.in-addr.arpa',
+          gateway          => '10.0.0.1',
+          range            => '10.0.0.50 10.0.0.200',
+          dhcp_nameservers => '10.0.1.2;10.0.1.3',
+
+          dns              => true,
+          dns_reverse      => '0.0.10.in-addr.arpa',
+        }
 
 Bugs / missing features
 =======================
@@ -161,7 +199,6 @@ __ `puppet-foreman pull 18`_
 
 Then there are also some points I want to expand in this document
 
-* The initial install should configure DHCP and DNS.
 * Setting up the puppet environment is a bit short
 * Configuring using the webinterface only graces over domain, subnets and
   provisioning templates
