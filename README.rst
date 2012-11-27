@@ -175,7 +175,6 @@ foreman_proxy definition.
 
         class {'foreman_proxy':
           dhcp             => true,
-          dhcp_reverse     => '0.0.10.in-addr.arpa',
           gateway          => '10.0.0.1',
           range            => '10.0.0.50 10.0.0.200',
           dhcp_nameservers => '10.0.1.2,10.0.1.3',
