@@ -189,12 +189,15 @@ Bugs / missing features
 While writing this document I ran into several bugs / missing features. This
 section is also a TODO list for myself.
 
-* `Separate passenger repository`_
 * `Set FOREMAN_USE_PASSENGER on install`__
 * Apache only listens on ipv4
 * Setting up postgresql using puppet would be nice
 
 __ `puppet-foreman pull 18`_
+
+Then there are some items that are fixed, but need to be included in foreman-installer.
+
+* `Separate passenger repository`_
 
 Then there are also some points I want to expand in this document
 
