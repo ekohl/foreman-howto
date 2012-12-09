@@ -23,7 +23,7 @@ installer and then write our preferences in *manager.pp*.
 .. code-block:: sh
 
         yum -y install git puppet
-        git clone --recursive https://github.com/theforeman/foreman-installer
+        git clone --recursive -b develop https://github.com/theforeman/foreman-installer
 
 Now we have the installer you can look at the various options available. Good
 starting points are init.pp and params.pp files. Now let's write our
@@ -60,19 +60,6 @@ Now we have a *manager.pp* we can apply.
 .. code-block:: sh
 
         puppet apply manager.pp --modulepath foreman-installer
-
-Currently when you run this you will see an error about being unable to stop
-foreman. The fix is rather simple. Just edit */etc/sysconfig/foreman* and set
-the following:
-
-.. code-block:: sh
-
-        FOREMAN_USE_PASSENGER=1
-
-When you re-run the puppet apply it should show no errors. This is `fixed in
-puppet-foreman`__ but not in puppet-installer.
-
-__ `puppet-foreman pull 18`_
 
 It should be mentioned that there is work underway to replace this *manager.pp*
 solution with an answer file. The git clone method will be replaced by
@@ -192,13 +179,6 @@ section is also a TODO list for myself.
 * Apache only listens on ipv4
 * Setting up postgresql using puppet would be nice
 
-Then there are some items that are fixed, but need to be included in foreman-installer.
-
-* `Separate passenger repository`_
-* `Set FOREMAN_USE_PASSENGER on install`__
-
-__ `puppet-foreman pull 18`_
-
 Then there are also some points I want to expand in this document
 
 * Setting up the puppet environment is a bit short
@@ -207,5 +187,3 @@ Then there are also some points I want to expand in this document
 
 .. _foreman-installer: https://github.com/theforeman/foreman-installer
 .. _foreman installer wiki: http://theforeman.org/projects/foreman/wiki/Using_Puppet_Module_ready_to_use
-.. _Separate passenger repository: https://github.com/theforeman/puppet-passenger/issues/2
-.. _puppet-foreman pull 18: https://github.com/theforeman/puppet-foreman/pull/18
