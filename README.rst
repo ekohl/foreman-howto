@@ -45,7 +45,7 @@ starting points are init.pp and params.pp files. Now let's write our
         } ~>
 
         package {'foreman-postgresql':
-          ensure => installed,
+          ensure  => installed,
           require => Yumrepo['foreman_proxy'],
         } ~>
 
@@ -132,7 +132,7 @@ Configuring using the webinterface
 We should now have a basic running system. Just go to
 http://manager.example.org/ and check it out. In case you set up credentials
 the default user is *admin*, but be sure to change the password from *changeme*
-to something a little bit more sure.
+to something a little bit more secure.
 
 First thing we're going to do is add our smart proxy. Navigate to *More* =>
 *Smart Proxies* and click the *New Proxy*-button. Enter the name and URL. I
