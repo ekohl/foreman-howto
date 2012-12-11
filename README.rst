@@ -170,6 +170,29 @@ foreman_proxy definition.
           dns_reverse      => '0.0.10.in-addr.arpa',
         }
 
+Using multiple networks
+=======================
+
+Suppose you have multiple networks on your smart proxy. We'll assume
+**172.29.1.0/24** and no free lease. For this you need to configure an IP in
+the range on some NIC. I'll assume you know how to do this yourself. Then we
+only need to add another DHCP pool and DNS reverse range to our *manager.pp*:
+
+.. code-block:: puppet
+
+        dhcp::pool {'My extra DHCP pool':
+          network => '172.29.1.0',
+          mask    => '255.255.255.0',
+          range   => false,
+          gateway => '172.29.1.1',
+        }
+
+        dns::zone {'1.29.172.in-addr.arpa':
+          reverse => true,
+        }
+
+That should give us another IP range we can use, including reverse DNS.
+
 Bugs / missing features
 =======================
 
