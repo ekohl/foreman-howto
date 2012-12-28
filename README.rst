@@ -33,21 +33,21 @@ starting points are init.pp and params.pp files. Now let's write our
 .. code-block:: puppet
 
         class {'puppet':
-        } ~>
+        } ->
 
         class {'puppet::server':
           git_repo => true,
-        } ~>
+        } ->
 
         class {'foreman_proxy':
           dhcp => true,
           dns  => true,
-        } ~>
+        } ->
 
         package {'foreman-postgresql':
           ensure  => installed,
           require => Yumrepo['foreman_proxy'],
-        } ~>
+        } ->
 
         class {'foreman':
           storeconfigs   => true,
