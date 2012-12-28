@@ -103,7 +103,7 @@ Last but not least is the initialization.
 
 .. code-block:: sh
 
-        su - -s /bin/bash foreman -c 'RAILS_ENV=production rake -f /usr/share/foreman/Rakefile db:migrate'
+        su - -s /bin/bash foreman -c 'RAILS_ENV=production bundle exec rake -f /usr/share/foreman/Rakefile db:migrate'
 
 Setting up the puppet environment
 =================================
