@@ -29,6 +29,8 @@ Now we have the installer you can look at the various options available. Good
 starting points are init.pp and params.pp files. Now let's write our
 *manager.pp* file. To help you get started here's an example.
 
+If you do not use assumed network, have a look at `Using a different network`_
+because DHCP will fail to start.
 
 .. code-block:: puppet
 
