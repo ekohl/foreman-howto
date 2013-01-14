@@ -107,6 +107,13 @@ Last but not least is the initialization.
 
         su - -s /bin/bash foreman -c 'RAILS_ENV=production bundle exec rake -f /usr/share/foreman/Rakefile db:migrate'
 
+SELinux
+=======
+
+Unfortunately foreman doesn't work with SELinux yet. Mostly passenger, but
+maybe there are others as well. `Issue #2125`_ is open, but until that time
+it's recommended to set selinux to permissive.
+
 Setting up the puppet environment
 =================================
 
@@ -212,3 +219,4 @@ Then there are also some points I want to expand in this document
 
 .. _foreman-installer: https://github.com/theforeman/foreman-installer
 .. _foreman installer wiki: http://theforeman.org/projects/foreman/wiki/Using_Puppet_Module_ready_to_use
+.. _Issue #2125: http://www.theforeman.org/issues/2125
