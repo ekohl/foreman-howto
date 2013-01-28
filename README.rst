@@ -171,7 +171,7 @@ foreman_proxy definition.
 
         class {'foreman_proxy':
           dhcp             => true,
-          gateway          => '10.0.0.1',
+          dhcp_gateway     => '10.0.0.1',
           dhcp_range       => '10.0.0.50 10.0.0.200',
           dhcp_nameservers => '10.0.1.2,10.0.1.3',
 
