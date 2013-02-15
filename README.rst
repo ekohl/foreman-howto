@@ -23,7 +23,7 @@ installer and then write our preferences in *manager.pp*.
 .. code-block:: sh
 
         yum -y install git puppet
-        git clone --recursive -b develop https://github.com/theforeman/foreman-installer
+        git clone --recursive https://github.com/theforeman/foreman-installer
 
 Now we have the installer you can look at the various options available. Good
 starting points are init.pp and params.pp files. Now let's write our
