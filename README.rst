@@ -126,13 +126,13 @@ Configuring using the webinterface
 ==================================
 
 We should now have a basic running system. Just go to
-http://manager.example.org/ and check it out. In case you set up credentials
+https://manager.example.org/ and check it out. In case you set up credentials
 the default user is *admin*, but be sure to change the password from *changeme*
 to something a little bit more secure.
 
 First thing we're going to do is add our smart proxy. Navigate to *More* =>
 *Smart Proxies* and click the *New Proxy*-button. Enter the name and URL. I
-recommend calling it manager and connect it to http://localhost:8443/. After
+recommend calling it manager and connect it to https://localhost:8443/. After
 it's added verify it has all the features you want. You should also be able to
 import your DHCP subnet here.
 
