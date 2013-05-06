@@ -13,8 +13,8 @@ it should be easily applied to Debian as well.
 It should be noted that foreman-installer_ is still very much in development
 and things are going to change.
 
-Installing foreman
-==================
+Installing foreman without the installer
+========================================
 
 For this part we'll use the foreman-installer_. The content of this chapter is
 also available on the `foreman installer wiki`_. We'll use git to retrieve the
@@ -23,7 +23,7 @@ installer and then write our preferences in *manager.pp*.
 .. code-block:: sh
 
         yum -y install git puppet
-        git clone --recursive https://github.com/theforeman/foreman-installer
+        git clone --recursive -b develop https://github.com/theforeman/foreman-installer
 
 Now we have the installer you can look at the various options available. Good
 starting points are init.pp and params.pp files. Now let's write our
@@ -46,15 +46,8 @@ because DHCP will fail to start.
           dns  => true,
         } ->
 
-        package {'foreman-postgresql':
-          ensure  => installed,
-          require => Yumrepo['foreman_proxy'],
-        } ->
-
         class {'foreman':
-          storeconfigs   => true,
           authentication => true,
-          use_sqlite     => false,
         }
 
 Now we have a *manager.pp* we can apply.
@@ -62,57 +55,6 @@ Now we have a *manager.pp* we can apply.
 .. code-block:: sh
 
         puppet apply manager.pp --modulepath foreman-installer
-
-It should be mentioned that there is work underway to replace this *manager.pp*
-solution with an answer file. The git clone method will be replaced by
-packages.
-
-The database
-============
-
-Personally I prefer setting it up with postgresql. We're going to install
-postgresql, initialize and start it.
-
-.. code-block:: sh
-
-        yum -y install postgresql-server
-        service postgresql initdb
-        service postgresql start
-        chkconfig postgresql on
-
-Now that we have postgres installed and running it's time to create a foreman
-user and database. By default all management of postgres happens as the
-postgres user so we're first going to change user. Note that we enter no
-password. This means postgres will check the actual user logging in. This only
-works because we'll use the socket on the same server.
-
-.. code-block:: sh
-
-        su - postgres -c 'createuser --no-createdb --no-createrole --no-superuser foreman'
-        su - postgres -c 'createdb -O foreman foreman'
-
-We just need to configure the database by editing */etc/foreman/database.yml*
-and modify our *production* environment. Note that you don't need to remove
-other options already in place.
-
-.. code-block:: yaml
-
-        production:
-          adapter: postgresql
-          database: foreman
-
-Last but not least is the initialization.
-
-.. code-block:: sh
-
-        su - -s /bin/bash foreman -c 'RAILS_ENV=production bundle exec rake -f /usr/share/foreman/Rakefile db:migrate'
-
-SELinux
-=======
-
-Unfortunately foreman doesn't work with SELinux yet. Mostly passenger, but
-maybe there are others as well. `Issue #2125`_ is open, but until that time
-it's recommended to set selinux to permissive.
 
 Setting up the puppet environment
 =================================
@@ -209,7 +151,6 @@ While writing this document I ran into several bugs / missing features. This
 section is also a TODO list for myself.
 
 * Apache only listens on ipv4
-* Setting up postgresql using puppet would be nice
 
 Then there are also some points I want to expand in this document
 
@@ -219,4 +160,3 @@ Then there are also some points I want to expand in this document
 
 .. _foreman-installer: https://github.com/theforeman/foreman-installer
 .. _foreman installer wiki: http://theforeman.org/projects/foreman/wiki/Using_Puppet_Module_ready_to_use
-.. _Issue #2125: http://www.theforeman.org/issues/2125
